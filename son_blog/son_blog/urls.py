@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
@@ -21,6 +22,6 @@ from blog import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('', views.home),
-    path('posts/<int:post_id>', views.post),
+    path('', views.home, name='url_home'),
+    path('posts/<int:post_id>', login_required(views.post)),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
