@@ -21,6 +21,7 @@ from django.conf import settings
 from blog import views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',include('django.contrib.auth.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', views.home, name='url_home'),
     path('posts/<int:post_id>', login_required(views.post)),
